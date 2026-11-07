@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Registered Users | MIVA-CSC312{% endblock %}
+
+{% block content %}
+<div class="card card-custom bg-white p-4">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+        <div>
+            <h4 class="fw-bold mb-1"><i class="bi bi-people-fill text-primary me-2"></i>Database Records: <code>tbl_user</code></h4>
+            <p class="text-muted small mb-0">Records retrieved via MySQL parameterized query (showing user credentials securely).</p>
+        </div>
+        <div>
+            <a href="{{ url_for('signup') }}" class="btn btn-primary btn-sm">
+                <i class="bi bi-person-plus-fill me-1"></i> Add New User
+            </a>
+        </div>
+    </div>
+
+    {% if db_error %}
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+            <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
+            <div>
+                <strong>Database Connection Status:</strong>
+                <div>{{ db_error }}</div>
+                <div class="small mt-1 text-muted">Please ensure your MySQL service (e.g. via XAMPP or MySQL Server) is started and credentials in <code>.env</code> are correct.</div>
+            </div>
+        </div>
+    {% else %}
+        {% if users %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" style="width: 80px;"># ID</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Password Hash Status</th>
+                            <th scope="col">Registration Date (created_at)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for u in users %}
+                            <tr>
+                                <td class="fw-bold text-secondary">{{ u.id }}</td>
+                                <td>
+                                    <span class="badge bg-light text-dark border px-3 py-2 fw-semibold">
+                                        <i class="bi bi-person me-1 text-primary"></i> {{ u.username }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">
+                                        <i class="bi bi-shield-check me-1"></i> Hashed (Secure)
+                                    </span>
+                                </td>
+                                <td class="text-muted small">
+                                    {{ u.created_at }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="text-center py-5">
+                <div class="text-muted mb-3"><i class="bi bi-inbox fs-1"></i></div>
+                <h5 class="fw-bold">No Users Found</h5>
+                <p class="text-muted small">The <code>tbl_user</code> table is currently empty. Go ahead and create your first account!</p>
+                <a href="{{ url_for('signup') }}" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-person-plus me-1"></i> Sign Up Now
+                </a>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}
