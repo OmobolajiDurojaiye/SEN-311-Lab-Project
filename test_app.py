@@ -34,7 +34,7 @@ class FlaskAppTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'name="username"', response.data)
         self.assertIn(b'name="password"', response.data)
-        self.assertIn(b'Create Account', response.data)
+        self.assertIn(b'Sign Up', response.data)
 
     def test_signup_validation_missing_fields(self):
         """Requirement 3: Validate form data using request.form (missing username & password)."""

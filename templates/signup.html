@@ -1,87 +1,44 @@
 {% extends "base.html" %}
 
-{% block title %}Sign Up | MIVA-CSC312 Web Application{% endblock %}
+{% block title %}Sign Up - MIVA-CSC312{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-7 col-lg-5">
-        <div class="card form-card bg-white p-4 p-md-5">
-            <div class="text-center mb-4">
-                <div class="bg-primary bg-opacity-10 text-primary d-inline-flex p-3 rounded-circle mb-3">
-                    <i class="bi bi-person-plus-fill fs-2"></i>
-                </div>
-                <h3 class="fw-bold text-dark">Create Account</h3>
-                <p class="text-muted small">Enter your credentials below to register</p>
+<div class="row">
+    <div class="col-md-5 mx-auto mt-5">
+        <div class="card">
+            <div class="card-header fw-bold">
+                User Registration (Sign Up)
             </div>
-
-            <!-- Traditional HTML Form submitting via POST to Flask endpoint -->
-            <form method="POST" action="{{ url_for('signup') }}" novalidate>
-                <!-- Username Input Field -->
-                <div class="mb-3">
-                    <label for="username" class="form-label fw-semibold">
-                        <i class="bi bi-person me-1"></i> Username
-                    </label>
-                    <div class="input-group">
-                        <span class="input-group-text bg-light"><i class="bi bi-at"></i></span>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('signup') }}">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
                         <input type="text"
                                class="form-control"
                                id="username"
                                name="username"
                                value="{{ username or '' }}"
-                               placeholder="e.g. jdoe_miva"
                                required
-                               autocomplete="username"
                                autofocus>
+                        <div class="form-text">Must be at least 3 characters long.</div>
                     </div>
-                    <div class="form-text small">
-                        Username must be at least 3 characters long.
-                    </div>
-                </div>
 
-                <!-- Password Input Field -->
-                <div class="mb-3">
-                    <label for="password" class="form-label fw-semibold">
-                        <i class="bi bi-lock me-1"></i> Password
-                    </label>
-                    <div class="input-group">
-                        <span class="input-group-text bg-light"><i class="bi bi-key"></i></span>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
                         <input type="password"
                                class="form-control"
                                id="password"
                                name="password"
-                               placeholder="Enter secure password"
-                               required
-                               autocomplete="new-password">
+                               required>
+                        <div class="form-text">Must be at least 6 characters long.</div>
                     </div>
-                    <div class="form-text small">
-                        Password must be at least 6 characters long.
-                    </div>
-                </div>
 
-                <!-- Security Note / Password Hashing Notice -->
-                <div class="security-badge mb-4">
-                    <div class="d-flex align-items-center">
-                        <i class="bi bi-shield-lock-fill fs-5 me-2"></i>
-                        <div>
-                            <strong>Cryptographic Protection:</strong>
-                            <div class="small">Passwords are hashed using <code>werkzeug.security</code> before storing into <code>tbl_user</code>.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="d-grid mb-3">
-                    <button type="submit" class="btn btn-primary btn-lg fw-semibold shadow-sm">
-                        <i class="bi bi-check2-circle me-1"></i> Complete Registration
-                    </button>
-                </div>
-
-                <div class="text-center">
-                    <a href="{{ url_for('index') }}" class="text-decoration-none small text-muted">
-                        <i class="bi bi-arrow-left me-1"></i> Back to Homepage
-                    </a>
-                </div>
-            </form>
+                    <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{{ url_for('index') }}" class="text-decoration-none small">Back to Home</a>
+            </div>
         </div>
     </div>
 </div>
